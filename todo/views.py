@@ -2,7 +2,7 @@ from sqlalchemy import select, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db import session_dependency
-from todo.models import Task, TaskSchema
+from todo.models import Task, TaskSchema, TaskSchemaUpdate
 
 from fastapi import APIRouter, Depends
 
@@ -18,7 +18,7 @@ async def create_task(data: TaskSchema,
     return task
 
 @router.put("/update/{task_id}")
-async def update_task(task_id, data: TaskSchema,
+async def update_task(task_id, data: TaskSchemaUpdate,
                       session: AsyncSession = Depends(session_dependency)):
     await session.execute(update(Task).where(Task.id == task_id),
                                  data.model_dump(exclude_unset=True))

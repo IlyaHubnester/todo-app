@@ -24,3 +24,6 @@ class TaskSchema(BaseModel):
     description: str | None = None
     completed: bool = False
     deadline: datetime | None = None
+
+class TaskSchemaUpdate(TaskSchema):
+    name: str | None = None
